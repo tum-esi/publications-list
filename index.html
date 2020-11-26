@@ -1,0 +1,23 @@
+<head>
+<link rel="stylesheet" href="https://tum-esi.github.io/publications-list/script/bib-publication-list-tum.css"/>
+</head>
+
+<div class="publications">
+<table class="display" id="pubTable">
+</table>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/jquery.min.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/BibTex-0.1.2.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/bib-publication-list-tum-dl.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var linkElement = document.createElement("link");
+       linkElement.rel = "stylesheet";
+     linkElement.href = "https://tum-esi.github.io/publications-list/script/bib-publication-list-tum.css";
+    document.head.appendChild(linkElement);
+
+    bibtexify("https://tum-esi.github.io/publications-list/bib/ESI-publications.bib", "pubTable");
+    
+  });
+</script>
+</div>
