@@ -92,25 +92,21 @@ var bibtexify = (function($) {
         bibtex: function(entryData) {
             var itemStr = '';
             itemStr += ' <a href="javascript:;" rel="noopener noreferrer" title="This article as BibTeX" target="_blank" onclick="window.open(\'javascript:;\',\'_blank\').document.write(\'';
-			itemStr += '@' + entryData.entryType + "{" + entryData.cite + ",\\n";
-            $.each(entryData, function(key, value) {
+			itemStr += '<pre>@' + entryData.entryType + "{" + entryData.cite + ",\\n";
+            $.each(entryData, function(key, value) {  // #fixme: ensure that $.each iterates a sorted list?
                 if (key == 'author') {
-                    itemStr += '  author = \{ ';
+                    itemStr += '  author       = \{ ';
                     for (var index = 0; index < value.length; index++) {
                         if (index > 0) { itemStr += " and "; }
                         itemStr += value[index].last;
                     }
                     itemStr += ' \},\\n';
                 } else if (key != 'entryType' && key != 'cite') {
-                    itemStr += '  ' + key + " = \{ " + value + " \},\\n";
+                    itemStr += '  ' + key.padEnd(12) + " = \{ " + value + " \},\\n";  // pad 12 because 'organization' (longest) has 12 chars
                 }
             });
-			itemStr += '\}\');return false;">'// title="This article as BibTeX" target="_blank" href="#" class="biblink">' +
+			itemStr += '\}</pre>\');return false;">'
             itemStr += '<img src=\"'+bibfileimg+'\" style="margin-right:30px" class="alignleft"/></a>';
-						//<div class="bibinfo hidden">';
-            //itemStr += '<a href="#" class="bibclose" title="Close">x</a><pre>';
-            
-            // itemStr += "}</pre></div>";
             return itemStr;
         },
         // generates the twitter link for the entry
