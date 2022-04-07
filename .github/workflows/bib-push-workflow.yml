@@ -1,0 +1,27 @@
+name: Bib Push Workflow
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/ESI-publications.bib"
+  
+  
+    
+    
+
+    
+jobs:
+  Separate-Bib-File:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out repo content
+        uses: actions/checkout@v3
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: execute bib2split.py
+        run: |
+          python3 bib/tools/bib2split bib/ESI_Publications
+
