@@ -23,5 +23,21 @@ jobs:
           python-version: 3.9
       - name: execute bib2split.py
         run: |
-          python3 bib/tools/bib2split bib/ESI_Publications
+          python3 bib/tools/bib2split.py ./bib/ESI-publications.bib
 
+      - name: setup git config
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: check for changes
+        run: git status
+      - name: stage changed files
+        run: git add .
+      - name: commit changed files
+        run: git commit -m "Auto separating bib file"
+      - name: fetch from main
+        run: git fetch origin
+      - name: push code to main
+        run: git push origin
