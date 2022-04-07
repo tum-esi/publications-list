@@ -23,5 +23,6 @@ jobs:
           python-version: 3.9
       - name: execute bib2split.py
         run: |
+          cd ${{ github.workspace }}
           python3 bib/tools/bib2split bib/ESI_Publications
 
