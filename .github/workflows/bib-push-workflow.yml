@@ -2,9 +2,9 @@ name: Bib Push Workflow
 on:
   push:
     branches:
-      - main
+      - "main"
     paths:
-      - "tools/ESI-publications.bib"
+      - "bib/ESI-publications.bib"
   
   
     
