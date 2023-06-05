@@ -8,7 +8,7 @@ In this repository, you can find the PDF and a bib file of all our publications.
 2. Clone the repository
 3. Change the bib file in your fork and add the PDF
 4. Open a Pull Request from your fork to the master branch here with your PDF and change to the bib file.
-5. Check after 5 minutes that [our publications web page](https://www.ei.tum.de/esi/publikationen/) looks good. Looking bad mostly means an empty page with an error in the browser's developer console. Also, clicking the PDF should open the pdf file.
+5. Check after 5 minutes that [our publications web page](https://www.ce.cit.tum.de/esi/publikationen/) looks good. Looking bad mostly means an empty page with an error in the browser's developer console. Also, clicking the PDF should open the pdf file.
 
 ## Manual Checks
 
