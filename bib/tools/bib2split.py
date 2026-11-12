@@ -85,7 +85,8 @@ def parseEntry(text):
     matches = re.search(reEntryLine, text, re.IGNORECASE)
     entry['pubtype'] = matches.group(1).lower()
     entry['entrykey'] = matches.group(2).lower()
-    entry['entrykey'] = entry['entrykey'].replace(":", "_")
+    # ':' and '/' are not allowed in file names ('/' would be read as a folder)
+    entry['entrykey'] = entry['entrykey'].replace(":", "_").replace("/", "_")
     
     for bibkey in lsKeys:
         entry[bibkey] = deTexify(getBibKey(bibkey, text))

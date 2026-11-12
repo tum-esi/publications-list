@@ -12,18 +12,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check out repo content
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
       - name: setup python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v7
         with:
-          python-version: 3.9
+          python-version: '3.13'
       - name: execute bib2split.py
         run: |
           python3 bib/tools/bib2split.py ./bib/ESI-publications.bib
 
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v8
         with:
           add-paths: |
             bib/ESI-Publications-Separated/*
