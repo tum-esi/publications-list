@@ -3,6 +3,17 @@ var pdffileimg = 'https://s-steinhorst.github.io/publications/lib/images/pdf.png
 var linkimg = 'https://s-steinhorst.github.io/publications/lib/images/hyperlink.png';
 
 var bibtexify = (function($) {
+    // Escapes a bib value so it can sit inside the single-quoted JS string of the
+    // inline onclick handler of the BibTeX link. Without this, an apostrophe
+    // (e.g. "CCS '26"), a double quote, a backslash or a line break in any field
+    // ends the string early and the BibTeX link silently does nothing.
+    var escapeForInlineJsString = function(value) {
+        return String(value)
+            .replace(/\\/g, '\\\\')      // keep LaTeX backslashes like {\"a}
+            .replace(/'/g, "\\'")        // apostrophes would close the JS string
+            .replace(/\r?\n/g, '\\n')    // raw line breaks are invalid in a JS string
+            .replace(/"/g, '&quot;');    // double quotes would close the onclick attribute
+    };
     // helper function to "compile" LaTeX special characters to HTML
     var htmlify = function(str) {
         // TODO: this is probably not a complete list..
@@ -98,11 +109,11 @@ var bibtexify = (function($) {
                     itemStr += '  author       = \{ ';
                     for (var index = 0; index < value.length; index++) {
                         if (index > 0) { itemStr += " and "; }
-                        itemStr += value[index].last;
+                        itemStr += escapeForInlineJsString(value[index].last);
                     }
                     itemStr += ' \},\\n';
                 } else if (key != 'entryType' && key != 'cite') {
-                    itemStr += '  ' + key.padEnd(12) + " = \{ " + value + " \},\\n";  // pad 12 because 'organization' (longest) has 12 chars
+                    itemStr += '  ' + key.padEnd(12) + " = \{ " + escapeForInlineJsString(value) + " \},\\n";  // pad 12 because 'organization' (longest) has 12 chars
                 }
             });
 			itemStr += '\}</pre>\');return false;">'
