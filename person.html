@@ -7,6 +7,14 @@
 <head>
 <title>ESI publications</title>
 <link rel="stylesheet" href="https://tum-esi.github.io/publications-list/script/bib-publication-list-tum.css"/>
+<style>
+  /* DataTables fixes the table to the width of its content at load time
+     (inline style), and the shared CSS centres it. With only a few entries
+     that leaves a narrow table in the middle of the iframe, so fill the
+     available width instead and let the publication column take the rest. */
+  .publications .bibtable { width: 100% !important; }
+  .publications .bibtable thead th:nth-child(3) { width: auto !important; }
+</style>
 </head>
 
 <div class="publications">
