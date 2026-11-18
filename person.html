@@ -1,0 +1,35 @@
+<!--
+  Per-person publication list, e.g. for an iframe on a TYPO3 staff page:
+  https://tum-esi.github.io/publications-list/person.html?author=Birkel
+  It uses the same bib file and scripts as index.html, but only shows the
+  entries where "author" matches one author name (whole word, case-insensitive).
+-->
+<head>
+<title>ESI publications</title>
+<link rel="stylesheet" href="https://tum-esi.github.io/publications-list/script/bib-publication-list-tum.css"/>
+</head>
+
+<div class="publications">
+<p id="authorFilterHint"></p>
+<table class="display" id="pubTable">
+</table>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/jquery.min.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/BibTex-0.1.2.js"></script>
+<script type="text/javascript" src="https://tum-esi.github.io/publications-list/script/bib-publication-list-tum-dl.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var authorName = (new URLSearchParams(window.location.search).get("author") || "").trim();
+
+    // Without an author the page would show everything, so ask for one instead
+    if (!authorName) {
+      document.getElementById("authorFilterHint").textContent =
+        "Add an author surname to the URL, e.g. person.html?author=Birkel";
+      return;
+    }
+
+    bibtexify("https://tum-esi.github.io/publications-list/bib/ESI-publications.bib", "pubTable",
+              { authorFilter: authorName });
+  });
+</script>
+</div>

@@ -21,6 +21,15 @@ In this repository, you can find the PDF and a bib file of all our publications.
 4. The filename should look like `https://tum-esi.github.io/publications-list/PDF/2021-DATE-Worst-Case%20Failover%20Timing%20Analysis%20of%20Distributed%20Fail-Operational%20Automotive%20Applications.pdf`. So you need to manually insert the domain name but also replace spaces with a `%20`. 
 
 
+## Personal Publication List
+
+`person.html` shows only the publications of one author. Use it on your staff page to keep your list up to date automatically.
+
+1. Open `https://tum-esi.github.io/publications-list/person.html?author=<Surname>` and check that the list is correct.
+2. In TYPO3, add an iframe content element (the same one as on the staff page of Prof. Steinhorst) and set this URL as its source.
+
+The filter matches the surname as a whole word and ignores case. Only papers in `ESI-publications.bib` appear. Visitors must accept the external content once, like on the main publication page.
+
 ## To Do
 
 - Check whether the bib file can render fine using GitHub actions but also allow local tests

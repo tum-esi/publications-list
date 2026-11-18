@@ -14,6 +14,19 @@ var bibtexify = (function($) {
             .replace(/\r?\n/g, '\\n')    // raw line breaks are invalid in a JS string
             .replace(/"/g, '&quot;');    // double quotes would close the onclick attribute
     };
+    // Keeps only the entries with an author whose name contains authorName as a
+    // whole word (case-insensitive), e.g. "Birkel" matches "Leon Birkel" and
+    // "Birkel, Leon" but not "Birkelbach". Used for per-person lists (person.html).
+    var filterEntriesByAuthor = function(entries, authorName) {
+        var escapedName = authorName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var wholeWordName = new RegExp('(^|[^\\p{L}])' + escapedName + '([^\\p{L}]|$)', 'iu');
+        return entries.filter(function(entry) {
+            return (entry.author || []).some(function(author) {
+                var fullName = [author.first, author.von, author.last, author.jr].join(' ');
+                return wholeWordName.test(fullName);
+            });
+        });
+    };
     // helper function to "compile" LaTeX special characters to HTML
     var htmlify = function(str) {
         // TODO: this is probably not a complete list..
@@ -279,6 +292,10 @@ var bibtexify = (function($) {
         var bibtex = new BibTex();
         bibtex.content = data;
         bibtex.parse();
+        // Optional per-person list. Without this option the full list is shown as before.
+        if (this.options.authorFilter) {
+            bibtex.data = filterEntriesByAuthor(bibtex.data, this.options.authorFilter);
+        }
         var bibentries = [], len = bibtex.data.length;
         var entryTypes = {};
         jQuery.extend(true, bib2html, this.options.bib2html);
@@ -442,6 +459,8 @@ var bibtexify = (function($) {
     //              on formatting.
     //   - bib2html: Can be used to override any of the functions or properties of
     //               the bib2html object. See above, starting around line 40.
+    //   - authorFilter: Only show entries with this author name (whole word,
+    //               case-insensitive), e.g. "Birkel". Off by default.
     return function(bibsrc, bibElemId, opts) {
         var options = $.extend({}, {'visualization': false,
                                 'sorting': []},
