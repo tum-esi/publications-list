@@ -14,6 +14,17 @@
      available width instead and let the publication column take the rest. */
   .publications .bibtable { width: 100% !important; }
   .publications .bibtable thead th:nth-child(3) { width: auto !important; }
+
+  /* Phones: the Year (80px) and Type (50px) columns plus padding would take
+     almost half the width, so shrink them and give the text more room. */
+  @media (max-width: 500px) {
+    .publications table.display td { padding: 3px 4px; }
+    .publications table.display td:nth-child(1) { width: 36px; }
+    .publications table.display td:nth-child(2) { width: 32px; }
+    /* Left-aligned text avoids wide gaps, and long DOIs/URLs may wrap
+       instead of pushing the page sideways */
+    .publications table.display td:nth-child(3) { text-align: left; overflow-wrap: anywhere; }
+  }
 </style>
 </head>
 
